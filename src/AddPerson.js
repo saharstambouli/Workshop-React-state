@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-
+import { v4 as uuidv4 } from 'uuid';
 export default class AddPerson extends Component {
   constructor() {
     super();
     this.state = {
       userName: "",
       email:"",
-      age: ""
+      age: "",
     };
   }
 
@@ -33,7 +33,8 @@ export default class AddPerson extends Component {
     this.props.handleAddPerson({
         userName: this.state.userName ,
         email: this.state.email,
-        age: this.state.age
+        age: this.state.age,
+        id: uuidv4()
     })
   }
 

@@ -4,6 +4,7 @@ import './App.css';
 import Counter from './Counter';
 import AddPerson from './AddPerson';
 import PersonList from './PersonList';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class App extends Component {
   
@@ -12,6 +13,7 @@ export default class App extends Component {
     this.state = {
       person : [
         {
+          id:uuidv4(),
           userName: "foulen-01",
           email:"foulen-01@email.com",
           age: "22"
@@ -32,25 +34,41 @@ export default class App extends Component {
       show : !this.state.show
     })
   }
+
+  updateUser = (id , data) => {
+    console.log('id', id)
+    this.setState({
+      person : this.state.person.map((el)=>{
+        if( el.id==id ){
+          console.log('el', el)
+          console.log('data', data)
+          return data 
+        }else {
+          return el
+        }
+      })
+    })
+    
+  }
   
   
   render() {
     return (
       <div className="App">
       <header className="App-header">
-
-        <button onClick={this.handleShow}> show </button>
+        {/* <button onClick={this.handleShow}> show </button>
         
         {
           this.state.show && <Counter/>
-        }
+        } */}
         
         
-        {/* <hr/>
+        <hr/>
         <AddPerson handleAddPerson = {this.handleAddPerson}/>
         <hr/>
-        <PersonList list ={this.state.person} /> */}
+        <PersonList list ={this.state.person} updateUser={this.updateUser} />
 
+        {console.log('this.state.', this.state.person)}
        
       </header>
     </div>
@@ -76,29 +94,3 @@ export default class App extends Component {
 
 
 
-
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
